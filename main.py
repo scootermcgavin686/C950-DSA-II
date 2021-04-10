@@ -52,20 +52,18 @@ while userInput != 'QUIT':
             packageMin = int(packageTimeSplit[1])
             userHour = int(userTime[0])
             userMin = int(userTime[1])
-            if userMin >= 60:
-                newUserMin = (userMin % 60)
-                newUserHour = int(userMin / 60)
-                userHour += newUserHour
-                userMin = newUserMin
             if userHour > packageHour:
                 package.deliveryStatus = 'Delivered'
             elif userHour == packageHour and userMin >= packageMin:
                 package.deliveryStatus = 'Delivered'
             else:
                 package.deliveryStatus = 'Not Delivered'
-
-        # Will print out a statement of the amount of miles it took to deliver package.
-        print('User entered a time of: {}:{}\n'.format(userHour, userMin))
+        if userMin < 10:
+            newuserMin = int('0{}'.format(userMin))
+            print('User entered a time of: {}:{}\n'.format(userHour, newuserMin))
+            # Will print out a statement of the amount of miles it took to deliver package.
+        else:
+            print('User entered a time of: {}:{}\n'.format(userHour, userMin))
 
         # This loop calls the hash table search function to determine the status of the package at the given
         # user timestamp. If the user timestamp is before the package timestamp, then it hasn't been delivered
@@ -104,11 +102,6 @@ while userInput != 'QUIT':
             packageMin = int(packageTimeSplit[1])
             userHour = int(userTime[0])
             userMin = int(userTime[1])
-            if userMin >= 60:
-                newUserMin = (userMin % 60)
-                newUserHour = int(userMin / 60)
-                userHour += newUserHour
-                userMin = newUserMin
             if userHour > packageHour:
                 package.deliveryStatus = 'Delivered'
             elif userHour == packageHour and userMin >= packageMin:
@@ -121,7 +114,8 @@ while userInput != 'QUIT':
                 package.deliveryStatus = 'En route'
             else:
                 package.deliveryStatus = 'At Hub'
-
+        if userMin < 10:
+            userMin = int('0{}'.format(userMin))
         # Will print out the amount of miles it took to deliver packages
         print('\nUser entered a time of: {}:{}\n\n'.format(userHour, userMin))
 
@@ -138,6 +132,8 @@ while userInput != 'QUIT':
     # Condition to see a single package object
     if userInput == 'PACKAGEDATA' or userInput == 'PACKAGE DATA':
         userNum = int(input('Please enter a specific package ID: '))
+        while userNum > 40 or userNum < 1:
+            userNum = int(input('Please enter a specific package ID between 1 and 40: '))
         userTimeStamp = input('Please enter a time in the format HH:MM military time: ')
         userTimeStampString = userTimeStamp.split(':')
         userHour = int(userTimeStampString[0])
@@ -174,6 +170,9 @@ while userInput != 'QUIT':
             else:
                 package.deliveryStatus = 'At Hub'
 
+        # this will add a zero in front of userMin if less than 10 to keep in line with the time format.
+        if userMin < 10:
+            userMin = int('0{}'.format(userMin))
         # Will print out the user's timestamp
         print('\nUser entered a time of: {}:{}\n'.format(userHour, userMin))
         # Assigns package to the users specified ID

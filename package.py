@@ -18,7 +18,7 @@ class Package:
 
     # Allows Package objects to be returned as string
     def __str__(self):
-        return ('{}, {}, {}, {}, {}, {}, {}, {},'
-                ' Delivery time {}, Status of package: {}'.format(self.packageID, self.address, self.deadline, self.city,
-                                 self.state, self.zip, self.weight, self.message,
+        return ('{}, {}, {}, {} {}, {}, {}, {},'
+                ' Delivery time {}, Status of package: {}'.format(self.packageID, self.address, self.city,
+                                 self.state, self.zip, self.weight, self.message, self.deadline,
                                  self.deliveryTime, self.deliveryStatus))

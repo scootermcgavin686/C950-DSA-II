@@ -41,14 +41,20 @@ def DeliverPackage(truck):
     totalMiles = 0
     currentLocation = GetLocationPos('4001 South 700 East')
     start = GetLocationPos('4001 South 700 East')
+
+    # Continues loop until all packages are off truck objects package list
     while truck.packages:
         min_dist = 1000
+        # Will find closest distance from the current location and the closest address
         for p1 in truck.packages:
             nextLocation = GetLocationPos(p1.address)
             dist = getDistance(currentLocation, nextLocation)
+            # If the package's address is already the current one and the current location ID isn't 0 which is the hub
+            # it will deliver the package
             if dist == 0 and currentLocation != 0:
                 min_dist = dist
                 closest = p1
+            # If no packages are equal to the current location it will assign the closest package to closest
             elif min_dist > dist:
                 min_dist = dist
                 closest = p1
